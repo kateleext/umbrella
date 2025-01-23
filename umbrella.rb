@@ -30,12 +30,12 @@ pirate_response = JSON.parse(HTTP.get(pirate_weather_url))
 current_temp = pirate_response.fetch("currently").fetch("temperature")
 current_summary = pirate_response.fetch("currently").fetch("summary")
 puts "It is currently #{current_summary}, at #{current_temp} degrees."
-puts "-----------------"
 
 #next hour precipitation
 next_hour_precip_prob = pirate_response.fetch("hourly").fetch("data")[0].fetch("precipProbability") * 100
 next_hour_precip_type = pirate_response.fetch("hourly").fetch("data")[0].fetch("precipType").downcase
 if next_hour_precip_prob > 0
+  puts "-----------------"
   puts "There is a #{next_hour_precip_prob}% chance of #{next_hour_precip_type} in the next hour."
 end
 
@@ -62,6 +62,8 @@ if draw_graph == true
   puts "-----------------\n\n"
   puts "Hours from Now vs. Percipitation Probability"
   puts AsciiCharts::Cartesian.new(chart_data, :bar => true).draw
+else
+  puts "There is no chance of precipitation in the next 12 hours."
 end
 
 if umbrella == true
